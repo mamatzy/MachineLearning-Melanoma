@@ -7,13 +7,13 @@ from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 import matplotlib.pyplot as plt
 
-def load_cifar10_data(batch_size=32, num_workers=2):
+def load_cifar10_data(batch_size=32, num_workers=0):
     """
     Load CIFAR-10 dataset with preprocessing
     
     Args:
         batch_size: Batch size for training and testing
-        num_workers: Number of workers for data loading
+        num_workers: Number of workers for data loading (set to 0 to avoid multiprocessing issues)
     
     Returns:
         train_loader, test_loader, classes

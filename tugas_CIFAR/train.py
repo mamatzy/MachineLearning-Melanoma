@@ -16,7 +16,15 @@ class Trainer:
         self.device = device
         self.model_name = model_name
         self.criterion = nn.CrossEntropyLoss()
-        self.optimizer = optim.SGD(self.model.parameters(), lr=0.1, 
+        
+        # Use lower learning rate for VGG (more stable with batch norm)
+        # Use higher learning rate for ResNet (already has batch norm)
+        if 'VGG' in model_name:
+            lr = 0.01  # Lower LR for VGG
+        else:
+            lr = 0.1   # Standard LR for ResNet
+        
+        self.optimizer = optim.SGD(self.model.parameters(), lr=lr, 
                                    momentum=0.9, weight_decay=5e-4)
         self.scheduler = CosineAnnealingLR(self.optimizer, T_max=200)
         
